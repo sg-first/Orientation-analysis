@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.naive_bayes import GaussianNB # 这里以高斯贝叶斯为例
+from sklearn.naive_bayes import GaussianNB
 from sklearn.externals import joblib    #把数据转化为二进制
 from sklearn.svm import SVC
 import vec
@@ -41,7 +41,7 @@ def buildPredictCountVec(sen,model):
             sub=model[word]
             result[sub]+=1
 
-    return np.array(result)
+    return np.array([result])
 
 
 '''
@@ -94,7 +94,7 @@ if __name__=='__main__':
 
     x_train, x_test, y_train, y_test = vec.load_file_and_processing2(X,y)
     train_vecs, test_vecs, model = vec.getWord2Vec(x_train, x_test)
-    clf = svm_train(train_vecs, y_train, test_vecs, y_test)
+    clf = bayes_train(train_vecs, y_train, test_vecs, y_test)
     words_vecs = buildPredictW2v('我要好好学习',model)
     result = predict(words_vecs,clf)
     print(result)
